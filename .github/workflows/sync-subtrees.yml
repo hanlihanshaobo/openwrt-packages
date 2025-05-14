@@ -6,7 +6,7 @@ on:
     - cron: '0 3 * * *'  # 每天凌晨 3 点运行
 
 env:
-  PROJECT_CONFIG_URL: https://raw.githubusercontent.com/hanlihanshaobo/openwrt-packages/refs/heads/main/projects.json
+  PROJECT_CONFIG_URL: https://raw.githubusercontent.com/hanlihanshaobo/openwrt-packages/main/projects.json
 
 jobs:
   sync:
@@ -39,14 +39,24 @@ jobs:
             echo "📦 项目: $name | 分支: $branch | 启用: $enabled"
 
             if [[ "$enabled" == "true" ]]; then
-              if [ -d "$name" ]; then
-                echo "🔄 更新 $name"
-                git subtree pull --prefix="$name" "$repo" "$branch" --squash || echo "⚠️ 无变更或拉取失败"
-              else
-                echo "➕ 添加 $name"
-                git subtree add --prefix="$name" "$repo" "$branch" --squash || echo "❌ 添加失败，可能分支不存在"
+              if [ -d "$name/.git" ]; then
+                echo "⚠️ 检测到 $name/.git，删除以避免冲突"
+                rm -rf "$name/.git"
               fi
-              changes=1
+
+              echo "➡️ 正在检查远程仓库 $repo@$branch"
+              if git ls-remote --exit-code --heads "$repo" "$branch"; then
+                if [ -d "$name" ]; then
+                  echo "🔄 更新 $name"
+                  git subtree pull --prefix="$name" "$repo" "$branch" --squash || echo "⚠️ 无变更或拉取失败"
+                else
+                  echo "➕ 添加 $name"
+                  git subtree add --prefix="$name" "$repo" "$branch" --squash || echo "❌ 添加失败，可能分支不存在"
+                fi
+                changes=1
+              else
+                echo "❌ 分支 $branch 不存在于仓库 $repo"
+              fi
             else
               if [ -d "$name" ]; then
                 echo "🗑️ 删除未启用的目录 $name"
