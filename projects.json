@@ -45,6 +45,6 @@
     "name": "istoreos",
     "repo": "https://github.com/istoreos/istoreos.git",
     "branch": "master",
-    "enabled": false
+    "enabled": true
   }
 ]
