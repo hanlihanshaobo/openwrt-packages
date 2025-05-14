@@ -18,6 +18,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+          token: ${{ secrets.PAT }}
 
       - name: Setup git config
         run: |
@@ -79,11 +80,12 @@ jobs:
             echo "✅ 没有未提交的更改"
           fi
 
-      - name: Push changes
-        run: |
-          if [ -n "$(git log origin/main..HEAD)" ]; then
-            echo "🔼 推送变更到 main 分支"
-            git push origin main
-          else
-            echo "📭 没有需要推送的变更"
-          fi
+- name: Push changes
+  run: |
+    git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
+    if [ -n "$(git log origin/main..HEAD)" ]; then
+      echo "🔼 推送变更到 main 分支"
+      git push origin main
+    else
+      echo "📭 没有需要推送的变更"
+    fi
