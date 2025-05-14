@@ -1,0 +1,42 @@
+name: Init & Sync Subtrees
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # 每天凌晨 3 点（UTC 时间）
+  workflow_dispatch:      # 允许手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # subtree 需要完整提交历史
+
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Add or update openwrt-third
+        run: |
+          if [ ! -d "openwrt-third" ]; then
+            git subtree add --prefix=openwrt-third https://github.com/jjm2473/openwrt-third.git master --squash
+          else
+            git subtree pull --prefix=openwrt-third https://github.com/jjm2473/openwrt-third.git master --squash || echo "No changes"
+          fi
+
+      - name: Add or update istoreos
+        run: |
+          if [ ! -d "istoreos" ]; then
+            git subtree add --prefix=istoreos https://github.com/istoreos/istoreos.git master --squash
+          else
+            git subtree pull --prefix=istoreos https://github.com/istoreos/istoreos.git master --squash || echo "No changes"
+          fi
+
+      - name: Push changes
+        run: |
+          git push origin main
