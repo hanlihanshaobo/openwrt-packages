@@ -1,0 +1,50 @@
+[
+  {
+    "name": "luci-theme-design",
+    "repo": "https://github.com/papagaye744/luci-theme-design.git",
+    "branch": "js",
+    "enabled": true
+  },
+  {
+    "name": "luci-theme-argon",
+    "repo": "https://github.com/jerrykuku/luci-theme-argon.git",
+    "branch": "master",
+    "enabled": true
+  },
+  {
+    "name": "luci-app-openclash",
+    "repo": "https://github.com/vernesong/OpenClash.git",
+    "branch": "master",
+    "enabled": true
+  },
+  {
+    "name": "luci-app-ofa",
+    "repo": "https://github.com/destan19/OpenAppFilter.git",
+    "branch": "master",
+    "enabled": true
+  },
+  {
+    "name": "luci-app-wechatpush",
+    "repo": "https://github.com/tty228/luci-app-wechatpush.git",
+    "branch": "master",
+    "enabled": true
+  },
+  {
+    "name": "luci-app-pushbot",
+    "repo": "https://github.com/zzsj0928/luci-app-pushbot.git",
+    "branch": "master",
+    "enabled": true
+  },
+  {
+    "name": "luci-app-ssr-plus",
+    "repo": "https://github.com/fw876/helloworld.git",
+    "branch": "master",
+    "enabled": true
+  },
+  {
+    "name": "istoreos",
+    "repo": "https://github.com/istoreos/istoreos.git",
+    "branch": "master",
+    "enabled": false
+  }
+]
