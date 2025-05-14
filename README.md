@@ -1,15 +1,18 @@
 # 📦 Synced Projects
 
-以下为通过 `projects.json` 自动同步的子项目列表：
+通过 `projects.json` 自动同步的子项目如下表所示：
 
-- **luci-theme-design** ([source](https://github.com/papagaye744/luci-theme-design.git), branch: `js`)
-- **luci-theme-argon** ([source](https://github.com/jerrykuku/luci-theme-argon.git), branch: `master`)
-- **luci-app-openclash** ([source](https://github.com/vernesong/OpenClash.git), branch: `master`)
-- **luci-app-ofa** ([source](https://github.com/destan19/OpenAppFilter.git), branch: `master`)
-- **luci-app-wechatpush** ([source](https://github.com/tty228/luci-app-wechatpush.git), branch: `master`)
-- **luci-app-pushbot** ([source](https://github.com/zzsj0928/luci-app-pushbot.git), branch: `master`)
-- **luci-app-ssr-plus** ([source](https://github.com/fw876/helloworld.git), branch: `master`)
-- **luci-app-gecoosac** ([source](https://github.com/lwb1978/openwrt-gecoosac.git), branch: `main`)
-- **luci-app-cupsd** ([source](https://github.com/sirpdboy/luci-app-cupsd.git), branch: `main`)
+| 项目名称 | 分支 | 仓库地址 | 启用状态 |
+|----------|------|-----------|----------|
+| **luci-theme-design** | `js` | [GitHub](https://github.com/papagaye744/luci-theme-design.git) | ✅ |
+| **luci-theme-argon** | `master` | [GitHub](https://github.com/jerrykuku/luci-theme-argon.git) | ✅ |
+| **luci-app-openclash** | `master` | [GitHub](https://github.com/vernesong/OpenClash.git) | ✅ |
+| **luci-app-ofa** | `master` | [GitHub](https://github.com/destan19/OpenAppFilter.git) | ✅ |
+| **luci-app-wechatpush** | `master` | [GitHub](https://github.com/tty228/luci-app-wechatpush.git) | ✅ |
+| **luci-app-pushbot** | `master` | [GitHub](https://github.com/zzsj0928/luci-app-pushbot.git) | ✅ |
+| **luci-app-ssr-plus** | `master` | [GitHub](https://github.com/fw876/helloworld.git) | ✅ |
+| **luci-app-gecoosac** | `main` | [GitHub](https://github.com/lwb1978/openwrt-gecoosac.git) | ✅ |
+| **luci-app-cupsd** | `main` | [GitHub](https://github.com/sirpdboy/luci-app-cupsd.git) | ✅ |
+| **istoreos** | `master` | [GitHub](https://github.com/istoreos/istoreos.git) | ❌ |
 
-_自动生成于 2025-05-14 13:35 UTC by GitHub Actions._
+> ⏱️ 更新时间：2025-05-14 13:39 UTC（由 GitHub Actions 自动生成）
