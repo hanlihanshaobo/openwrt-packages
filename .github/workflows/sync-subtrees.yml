@@ -1,4 +1,4 @@
-name: Sync Subtrees from JSON (With PAT)
+name: Sync Subtrees
 
 on:
   workflow_dispatch:
