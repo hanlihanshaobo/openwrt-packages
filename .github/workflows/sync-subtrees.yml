@@ -82,3 +82,32 @@ jobs:
           else
             echo "📭 没有需要推送的变更"
           fi
+          
+      - name: Generate README from synced projects
+        run: |
+          echo "# 📦 Synced Projects" > README.md
+          echo "" >> README.md
+          echo "以下为通过 \`projects.json\` 自动同步的子项目列表：" >> README.md
+          echo "" >> README.md
+          jq -c '.[]' projects.json | while read -r project; do
+            name=$(echo "$project" | jq -r '.name')
+            repo=$(echo "$project" | jq -r '.repo')
+            branch=$(echo "$project" | jq -r '.branch // "master"')
+            enabled=$(echo "$project" | jq -r '.enabled')
+            if [[ "$enabled" == "true" ]]; then
+              echo "- **$name** ([source]($repo), branch: \`$branch\`)" >> README.md
+            fi
+          done
+          echo "" >> README.md
+          echo "_自动生成于 $(date -u '+%Y-%m-%d %H:%M UTC') by GitHub Actions._" >> README.md
+
+      - name: Commit README if changed
+        run: |
+          if [ -n "$(git status --porcelain README.md)" ]; then
+            git add README.md
+            git commit -m "📘 更新自动生成的 README.md"
+            git push origin main
+          else
+            echo "🆗 README 无需更新"
+          fi
+
