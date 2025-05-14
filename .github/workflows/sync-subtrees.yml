@@ -1,9 +1,9 @@
-name: Sync Subtrees from JSON
+name: Sync Subtrees from JSON (Debug Mode)
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 3 * * *'
-  workflow_dispatch:
 
 env:
   PROJECT_CONFIG_URL: https://raw.githubusercontent.com/hanlihanshaobo/openwrt-packages/refs/heads/main/packages.json
@@ -41,15 +41,15 @@ jobs:
             if [[ "$enabled" == "true" ]]; then
               if [ -d "$name" ]; then
                 echo "🔄 更新 $name"
-                git subtree pull --prefix="$name" "$repo" "$branch" --squash || echo "No changes"
+                git subtree pull --prefix="$name" "$repo" "$branch" --squash || echo "⚠️ 无变更或拉取失败"
               else
                 echo "➕ 添加 $name"
-                git subtree add --prefix="$name" "$repo" "$branch" --squash
+                git subtree add --prefix="$name" "$repo" "$branch" --squash || echo "❌ 添加失败，请确认分支是否存在"
               fi
               changes=1
             else
               if [ -d "$name" ]; then
-                echo "❌ 删除 $name"
+                echo "🗑️ 删除未启用的目录 $name"
                 git rm -rf "$name"
                 git commit -m "Remove $name (disabled in config)"
                 changes=1
@@ -57,10 +57,33 @@ jobs:
             fi
           done
 
-          if [[ "$changes" == "0" ]]; then
-            echo "✅ 没有需要同步的更改"
+      - name: Show working directory contents
+        run: |
+          echo "📁 当前目录结构："
+          tree -L 2 || ls -R
+
+      - name: Show git status & diff
+        run: |
+          echo "📌 Git 状态："
+          git status
+          echo "📌 Git Diff："
+          git diff --stat || true
+
+      - name: Commit if any unstaged changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "📥 检测到变更，正在提交"
+            git add .
+            git commit -m "Sync subtrees from JSON config"
+          else
+            echo "✅ 没有未提交的更改"
           fi
 
-      - name: Push if changed
+      - name: Push changes
         run: |
-          git diff --quiet || git push origin main
+          if [ -n "$(git log origin/main..HEAD)" ]; then
+            echo "🔼 推送变更到 main 分支"
+            git push origin main
+          else
+            echo "📭 没有需要推送的变更"
+          fi
