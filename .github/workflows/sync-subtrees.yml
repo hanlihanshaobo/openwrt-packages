@@ -1,0 +1,125 @@
+name: Sync Subtrees from JSON (With PAT) & Clean Old Actions Runs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'  # 每天凌晨 3 点运行
+
+env:
+  PROJECT_CONFIG_URL: https://raw.githubusercontent.com/hanlihanshaobo/openwrt-packages/main/projects.json
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT }}
+
+      - name: Setup Git config
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Download project config JSON
+        run: curl -sSL "$PROJECT_CONFIG_URL" -o projects.json
+
+      - name: Parse and Sync Projects
+        run: |
+          changes=0
+          mkdir -p .synced
+          jq -c '.[]' projects.json | while read -r project; do
+            name=$(echo "$project" | jq -r '.name')
+            repo=$(echo "$project" | jq -r '.repo')
+            branch=$(echo "$project" | jq -r '.branch // "master"')
+            enabled=$(echo "$project" | jq -r '.enabled')
+
+            echo "$name" >> .synced/projects.txt
+            echo "📦 项目: $name | 分支: $branch | 启用: $enabled"
+
+            if [[ "$enabled" == "true" ]]; then
+              if [ -d "$name" ]; then
+                echo "🔄 更新 $name"
+                git subtree pull --prefix="$name" "$repo" "$branch" --squash || echo "⚠️ 无变更或拉取失败"
+              else
+                echo "➕ 添加 $name"
+                git subtree add --prefix="$name" "$repo" "$branch" --squash || echo "❌ 添加失败，可能分支不存在"
+              fi
+              changes=1
+            else
+              if [ -d "$name" ]; then
+                echo "🗑️ 删除未启用的目录 $name"
+                git rm -rf "$name"
+                git commit -m "Remove $name (disabled in config)"
+                changes=1
+              fi
+            fi
+          done
+
+      - name: Remove directories not listed in config
+        run: |
+          echo "🧹 清理未在 config 中出现的目录"
+          mapfile -t synced < .synced/projects.txt
+          for dir in */; do
+            dir=${dir%/}
+            if [[ "$dir" == ".github" || "$dir" == "scripts" || "$dir" == ".synced" ]]; then
+              continue
+            fi
+            if [[ ! " ${synced[*]} " =~ " ${dir} " ]]; then
+              echo "🗑️ 删除多余目录: $dir"
+              git rm -rf "$dir"
+              git commit -m "Remove $dir (not in config)"
+              changes=1
+            fi
+          done
+
+      - name: Show git status & diff
+        run: |
+          echo "📌 Git 状态："
+          git status
+          echo "📌 Git Diff："
+          git diff --stat || true
+
+      - name: Commit changes if needed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "💾 提交更改"
+            git add .
+            git commit -m "Sync subtrees from config"
+          else
+            echo "✅ 没有变更需要提交"
+          fi
+
+      - name: Push changes using PAT
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
+          if [ -n "$(git log origin/main..HEAD)" ]; then
+            echo "🚀 推送到 main 分支"
+            git push origin main
+          else
+            echo "📭 没有需要推送的变更"
+          fi
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: sync
+
+    steps:
+      - name: Delete old workflow runs (keep last 7)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🧼 清理旧的 GitHub Actions 运行记录（保留 7 个）"
+          runs=$(gh api -X GET /repos/${{ github.repository }}/actions/runs --paginate -q '.workflow_runs | sort_by(.created_at) | .[].id')
+          count=0
+          for run_id in $runs; do
+            count=$((count + 1))
+            if [ $count -le 7 ]; then
+              continue
+            fi
+            echo "🗑️ 删除运行记录 ID: $run_id"
+            gh api --method DELETE /repos/${{ github.repository }}/actions/runs/$run_id
+          done
