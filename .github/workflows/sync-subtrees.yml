@@ -6,7 +6,7 @@ on:
     - cron: '0 3 * * *'  # 每天凌晨 3 点运行
 
 env:
-  PROJECT_CONFIG_URL: https://raw.githubusercontent.com/hanlihanshaobo/openwrt-packages/refs/heads/main/packages.json
+  PROJECT_CONFIG_URL: https://raw.githubusercontent.com/hanlihanshaobo/openwrt-packages/refs/heads/main/projects.json
 
 jobs:
   sync:
