@@ -1,8 +1,0 @@
-
-luci-theme-design
-luci-theme-argon
-luci-app-openclash
-luci-app-ofa
-luci-app-wechatpush
-luci-app-pushbot
-luci-app-ssr-plus
