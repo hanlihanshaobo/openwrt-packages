@@ -83,23 +83,29 @@ jobs:
             echo "📭 没有需要推送的变更"
           fi
           
-      - name: Generate README from synced projects
+      - name: Generate pretty README from synced projects
         run: |
           echo "# 📦 Synced Projects" > README.md
           echo "" >> README.md
-          echo "以下为通过 \`projects.json\` 自动同步的子项目列表：" >> README.md
+          echo "通过 \`projects.json\` 自动同步的子项目如下表所示：" >> README.md
           echo "" >> README.md
+          echo "| 项目名称 | 分支 | 仓库地址 | 启用状态 |" >> README.md
+          echo "|----------|------|-----------|----------|" >> README.md
+          
           jq -c '.[]' projects.json | while read -r project; do
             name=$(echo "$project" | jq -r '.name')
             repo=$(echo "$project" | jq -r '.repo')
             branch=$(echo "$project" | jq -r '.branch // "master"')
             enabled=$(echo "$project" | jq -r '.enabled')
+            status="❌"
             if [[ "$enabled" == "true" ]]; then
-              echo "- **$name** ([source]($repo), branch: \`$branch\`)" >> README.md
+              status="✅"
             fi
+            echo "| **$name** | \`$branch\` | [GitHub]($repo) | $status |" >> README.md
           done
+
           echo "" >> README.md
-          echo "_自动生成于 $(date -u '+%Y-%m-%d %H:%M UTC') by GitHub Actions._" >> README.md
+          echo "> ⏱️ 更新时间：$(date -u '+%Y-%m-%d %H:%M UTC')（由 GitHub Actions 自动生成）" >> README.md
 
       - name: Commit README if changed
         run: |
@@ -110,4 +116,3 @@ jobs:
           else
             echo "🆗 README 无需更新"
           fi
-
