@@ -125,6 +125,6 @@ jobs:
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v2
         with:
-          retain_days: 7              # 保留最近 7 天内的运行
-          keep_minimum_runs: 7       # 至少保留最近的 7 次运行（即使超过 7 天）
+          retain_days: 2              # 保留最近 7 天内的运行
+          keep_minimum_runs: 12       # 至少保留最近的 7 次运行（即使超过 7 天）
 
