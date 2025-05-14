@@ -3,7 +3,7 @@ name: Sync Subtrees from JSON (With PAT)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '20 * * * *'  # 每天凌晨 3 点运行
+    - cron: '20 * * * *'
 
 env:
   PROJECT_CONFIG_URL: https://raw.githubusercontent.com/hanlihanshaobo/openwrt-packages/main/projects.json
