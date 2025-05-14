@@ -112,7 +112,13 @@ jobs:
           if [ -n "$(git status --porcelain README.md)" ]; then
             git add README.md
             git commit -m "📘 更新自动生成的 README.md"
+
+            echo "📥 拉取远程更新以避免冲突"
+            git pull --rebase origin main
+
+            echo "🚀 推送更改到远程"
             git push origin main
           else
             echo "🆗 README 无需更新"
           fi
+
