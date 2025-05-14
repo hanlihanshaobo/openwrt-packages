@@ -3,7 +3,7 @@
     "name": "luci-theme-design",
     "repo": "https://github.com/papagaye744/luci-theme-design.git",
     "branch": "js",
-    "enabled": true
+    "enabled": false
   },
   {
     "name": "luci-theme-argon",
