@@ -10,15 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Authenticate GH CLI with PAT
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}
-        run: |
-          echo $GH_TOKEN | gh auth login --with-token
-
       - name: Delete old workflow runs (keep last 7)
         env:
-          GH_TOKEN: ${{ secrets.PAT }}
+          GH_TOKEN: ${{ secrets.PAT }}  # PAT 直接通过 GH_TOKEN 使用
         run: |
           echo "🧼 清理旧的 GitHub Actions 运行记录（保留 7 个）"
           runs=$(gh api -X GET /repos/${{ github.repository }}/actions/runs --paginate -q '.workflow_runs | sort_by(.created_at) | .[].id')
@@ -30,4 +24,3 @@ jobs:
             fi
             echo "🗑️ 删除运行记录 ID: $run_id"
             gh api --method DELETE /repos/${{ github.repository }}/actions/runs/$run_id || echo "⚠️ 无法删除 $run_id"
-          done
