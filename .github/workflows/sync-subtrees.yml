@@ -108,7 +108,11 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT }}  # 使用个人的 PAT
         run: |
           echo "🧼 清理旧的 GitHub Actions 运行记录（保留 7 个）"
+          
+          # 获取所有运行记录并处理分页
           runs=$(gh api -X GET /repos/${{ github.repository }}/actions/runs --paginate -q '.workflow_runs | sort_by(.created_at) | .[].id')
+          
+          # 删除超过 7 个的运行记录
           count=0
           for run_id in $runs; do
             count=$((count + 1))
