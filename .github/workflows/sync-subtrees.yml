@@ -1,5 +1,4 @@
-name: Sync Subtrees from JSON (With PAT) & Clean Old Actions Runs
-
+name: Sync Subtrees from JSON (With PAT)
 on:
   workflow_dispatch:
   schedule:
@@ -92,33 +91,3 @@ jobs:
           else
             echo "📭 没有需要推送的变更"
           fi
-
-  cleanup:
-    runs-on: ubuntu-latest
-    needs: sync
-    steps:
-      - name: Set up GitHub token
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}  # 使用个人的 PAT
-        run: |
-          echo "GitHub Token setup completed"
-  
-      - name: Delete old workflow runs (keep last 7)
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}  # 使用个人的 PAT
-        run: |
-          echo "🧼 清理旧的 GitHub Actions 运行记录（保留 7 个）"
-          
-          # 获取所有运行记录并处理分页
-          runs=$(gh api -X GET /repos/${{ github.repository }}/actions/runs --paginate -q '.workflow_runs | sort_by(.created_at) | .[].id')
-          
-          # 删除超过 7 个的运行记录
-          count=0
-          for run_id in $runs; do
-            count=$((count + 1))
-            if [ $count -le 7 ]; then
-              continue
-            fi
-            echo "🗑️ 删除运行记录 ID: $run_id"
-            gh api --method DELETE /repos/${{ github.repository }}/actions/runs/$run_id
-          done
