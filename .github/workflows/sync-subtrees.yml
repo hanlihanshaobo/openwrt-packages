@@ -1,12 +1,9 @@
 name: Sync Subtrees from JSON (With PAT)
+
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 3 * * *'  # 每天凌晨 3 点运行
-  workflow_run:
-    workflows: ["Sync Subtrees from JSON (With PAT)"]
-    types:
-      - completed
 
 env:
   PROJECT_CONFIG_URL: https://raw.githubusercontent.com/hanlihanshaobo/openwrt-packages/main/projects.json
@@ -20,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          token: ${{ secrets.PAT }}  # 使用你的 Personal Access Token
+          token: ${{ secrets.PAT }}
 
       - name: Setup Git config
         run: |
@@ -61,21 +58,16 @@ jobs:
           done
 
       - name: Show working directory contents
-        run: |
-          echo "📁 当前目录结构："
-          tree -L 2 || ls -R
+        run: tree -L 2 || ls -R
 
       - name: Show git status & diff
         run: |
-          echo "📌 Git 状态："
           git status
-          echo "📌 Git Diff："
           git diff --stat || true
 
       - name: Commit changes if needed
         run: |
           if [ -n "$(git status --porcelain)" ]; then
-            echo "💾 提交更改"
             git add .
             git commit -m "Sync subtrees from config"
           else
@@ -86,7 +78,7 @@ jobs:
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
           if [ -n "$(git log origin/main..HEAD)" ]; then
-            echo "🚀 推送到 main 分支"
             git push origin main
           else
             echo "📭 没有需要推送的变更"
+          fi
