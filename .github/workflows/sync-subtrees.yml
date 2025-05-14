@@ -102,7 +102,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}  # 使用 GitHub 内置的 Token
         run: |
           echo "GitHub Token setup completed"
-
+  
       - name: Delete old workflow runs (keep last 7)
         env:
           GH_TOKEN: ${{ github.token }}  # 使用 GitHub 内置的 Token
@@ -116,5 +116,5 @@ jobs:
               continue
             fi
             echo "🗑️ 删除运行记录 ID: $run_id"
-            gh api --method DELETE /repos/${{ github.repository }}/actions/runs/$run_id --authorization "token $GH_TOKEN"
+            gh api --method DELETE /repos/${{ github.repository }}/actions/runs/$run_id
           done
