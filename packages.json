@@ -1,0 +1,14 @@
+[
+  {
+    "name": "openwrt-third",
+    "repo": "https://github.com/jjm2473/openwrt-third.git",
+    "branch": "master",
+    "enabled": true
+  },
+  {
+    "name": "istoreos",
+    "repo": "https://github.com/istoreos/istoreos.git",
+    "branch": "master",
+    "enabled": false
+  }
+]
