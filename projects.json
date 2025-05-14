@@ -42,6 +42,18 @@
     "enabled": true
   },
   {
+    "name": "luci-app-gecoosac",
+    "repo": "https://github.com/lwb1978/openwrt-gecoosac.git",
+    "branch": "main",
+    "enabled": true
+  },
+  {
+    "name": "luci-app-cupsd",
+    "repo": "https://github.com/sirpdboy/luci-app-cupsd.git",
+    "branch": "main",
+    "enabled": true
+  },
+  {
     "name": "istoreos",
     "repo": "https://github.com/istoreos/istoreos.git",
     "branch": "master",
