@@ -3,7 +3,7 @@
     "name": "luci-theme-design",
     "repo": "https://github.com/papagaye744/luci-theme-design.git",
     "branch": "js",
-    "enabled": false
+    "enabled": true
   },
   {
     "name": "luci-theme-argon",
@@ -57,6 +57,6 @@
     "name": "istoreos",
     "repo": "https://github.com/istoreos/istoreos.git",
     "branch": "master",
-    "enabled": true
+    "enabled": false
   }
 ]
