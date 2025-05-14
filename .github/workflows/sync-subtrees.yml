@@ -1,9 +1,14 @@
-name: Init & Sync Subtrees
+name: Sync Subtrees (auto delete undefined projects)
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # 每天凌晨 3 点（UTC 时间）
-  workflow_dispatch:      # 允许手动触发
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+env:
+  ENABLE_OPENWRT_THIRD: true
+  ENABLE_ISTOREOS: false
+  # 注意：未定义的项目变量如 ENABLE_PROJECT_X 将被视为 false
 
 jobs:
   sync:
@@ -14,28 +19,41 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0  # subtree 需要完整提交历史
+          fetch-depth: 0
 
-      - name: Set up Git
+      - name: Setup Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Add or update openwrt-third
+      - name: Define and sync known projects
         run: |
-          if [ ! -d "openwrt-third" ]; then
-            git subtree add --prefix=openwrt-third https://github.com/jjm2473/openwrt-third.git master --squash
-          else
-            git subtree pull --prefix=openwrt-third https://github.com/jjm2473/openwrt-third.git master --squash || echo "No changes"
-          fi
+          declare -A repos=(
+            ["openwrt-third"]="https://github.com/jjm2473/openwrt-third.git"
+            ["istoreos"]="https://github.com/istoreos/istoreos.git"
+          )
 
-      - name: Add or update istoreos
-        run: |
-          if [ ! -d "istoreos" ]; then
-            git subtree add --prefix=istoreos https://github.com/istoreos/istoreos.git master --squash
-          else
-            git subtree pull --prefix=istoreos https://github.com/istoreos/istoreos.git master --squash || echo "No changes"
-          fi
+          for project in "${!repos[@]}"; do
+            # 生成变量名（如 ENABLE_OPENWRT_THIRD）
+            VAR_NAME="ENABLE_${project^^//-/_}" # 将小写转大写并替换横线为下划线
+            ENABLED="${!VAR_NAME}"
+
+            if [[ "$ENABLED" == "true" ]]; then
+              echo "✅ $project is enabled"
+
+              if [ -d "$project" ]; then
+                git subtree pull --prefix="$project" "${repos[$project]}" master --squash || echo "No changes"
+              else
+                git subtree add --prefix="$project" "${repos[$project]}" master --squash
+              fi
+            else
+              echo "❌ $project is not enabled"
+              if [ -d "$project" ]; then
+                git rm -rf "$project"
+                git commit -m "Remove $project (disabled or unset)"
+              fi
+            fi
+          done
 
       - name: Push changes
         run: |
