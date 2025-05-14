@@ -1,4 +1,4 @@
-name: Sync Subtrees (auto delete undefined projects)
+name: Sync Subtrees from JSON
 
 on:
   schedule:
@@ -6,55 +6,61 @@ on:
   workflow_dispatch:
 
 env:
-  ENABLE_OPENWRT_THIRD: true
-  ENABLE_ISTOREOS: false
-  # 注意：未定义的项目变量如 ENABLE_PROJECT_X 将被视为 false
+  PROJECT_CONFIG_URL: https://raw.githubusercontent.com/hanlihanshaobo/openwrt-packages/refs/heads/main/packages.json
 
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout main repo
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Setup Git
+      - name: Setup git config
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Define and sync known projects
+      - name: Download project config JSON
+        run: curl -sSL "$PROJECT_CONFIG_URL" -o projects.json
+
+      - name: Parse and Sync Projects
         run: |
-          declare -A repos=(
-            ["openwrt-third"]="https://github.com/jjm2473/openwrt-third.git"
-            ["istoreos"]="https://github.com/istoreos/istoreos.git"
-          )
+          changes=0
+          jq -c '.[]' projects.json | while read -r project; do
+            name=$(echo "$project" | jq -r '.name')
+            repo=$(echo "$project" | jq -r '.repo')
+            branch=$(echo "$project" | jq -r '.branch // "master"')
+            enabled=$(echo "$project" | jq -r '.enabled')
 
-          for project in "${!repos[@]}"; do
-            # 生成变量名（如 ENABLE_OPENWRT_THIRD）
-            VAR_NAME="ENABLE_${project^^//-/_}" # 将小写转大写并替换横线为下划线
-            ENABLED="${!VAR_NAME}"
+            echo "📦 项目: $name | 分支: $branch | 启用: $enabled"
 
-            if [[ "$ENABLED" == "true" ]]; then
-              echo "✅ $project is enabled"
-
-              if [ -d "$project" ]; then
-                git subtree pull --prefix="$project" "${repos[$project]}" master --squash || echo "No changes"
+            if [[ "$enabled" == "true" ]]; then
+              if [ -d "$name" ]; then
+                echo "🔄 更新 $name"
+                git subtree pull --prefix="$name" "$repo" "$branch" --squash || echo "No changes"
               else
-                git subtree add --prefix="$project" "${repos[$project]}" master --squash
+                echo "➕ 添加 $name"
+                git subtree add --prefix="$name" "$repo" "$branch" --squash
               fi
+              changes=1
             else
-              echo "❌ $project is not enabled"
-              if [ -d "$project" ]; then
-                git rm -rf "$project"
-                git commit -m "Remove $project (disabled or unset)"
+              if [ -d "$name" ]; then
+                echo "❌ 删除 $name"
+                git rm -rf "$name"
+                git commit -m "Remove $name (disabled in config)"
+                changes=1
               fi
             fi
           done
 
-      - name: Push changes
+          if [[ "$changes" == "0" ]]; then
+            echo "✅ 没有需要同步的更改"
+          fi
+
+      - name: Push if changed
         run: |
-          git push origin main
+          git diff --quiet || git push origin main
