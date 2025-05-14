@@ -99,13 +99,13 @@ jobs:
     steps:
       - name: Set up GitHub token
         env:
-          GH_TOKEN: ${{ github.token }}  # 使用 GitHub 内置的 Token
+          GH_TOKEN: ${{ secrets.PAT }}  # 使用个人的 PAT
         run: |
           echo "GitHub Token setup completed"
   
       - name: Delete old workflow runs (keep last 7)
         env:
-          GH_TOKEN: ${{ github.token }}  # 使用 GitHub 内置的 Token
+          GH_TOKEN: ${{ secrets.PAT }}  # 使用个人的 PAT
         run: |
           echo "🧼 清理旧的 GitHub Actions 运行记录（保留 7 个）"
           runs=$(gh api -X GET /repos/${{ github.repository }}/actions/runs --paginate -q '.workflow_runs | sort_by(.created_at) | .[].id')
