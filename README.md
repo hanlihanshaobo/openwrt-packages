@@ -9,10 +9,10 @@
 | **luci-app-openclash** | `master` | [GitHub](https://github.com/vernesong/OpenClash.git) | ✅ |
 | **luci-app-ofa** | `master` | [GitHub](https://github.com/destan19/OpenAppFilter.git) | ✅ |
 | **luci-app-wechatpush** | `master` | [GitHub](https://github.com/tty228/luci-app-wechatpush.git) | ✅ |
-| **luci-app-pushbot** | `master` | [GitHub](https://github.com/zzsj0928/luci-app-pushbot.git) | ✅ |
+| **luci-app-pushbot** | `master` | [GitHub](https://github.com/zzsj0928/luci-app-pushbot.git) | ❌ |
 | **luci-app-ssr-plus** | `master` | [GitHub](https://github.com/fw876/helloworld.git) | ✅ |
 | **luci-app-gecoosac** | `main` | [GitHub](https://github.com/lwb1978/openwrt-gecoosac.git) | ✅ |
 | **luci-app-cupsd** | `main` | [GitHub](https://github.com/sirpdboy/luci-app-cupsd.git) | ✅ |
 | **istoreos** | `master` | [GitHub](https://github.com/istoreos/istoreos.git) | ❌ |
 
-> ⏱️ 更新时间：2025-05-15 05:38 UTC（由 GitHub Actions 自动生成）
+> ⏱️ 更新时间：2025-05-15 06:45 UTC（由 GitHub Actions 自动生成）
