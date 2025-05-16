@@ -15,4 +15,4 @@
 | **luci-app-cupsd** | `main` | [GitHub](https://github.com/sirpdboy/luci-app-cupsd.git) | ✅ |
 | **istoreos** | `master` | [GitHub](https://github.com/istoreos/istoreos.git) | ❌ |
 
-> ⏱️ 更新时间：2025-05-16 02:18 UTC（由 GitHub Actions 自动生成）
+> ⏱️ 更新时间：2025-05-16 03:28 UTC（由 GitHub Actions 自动生成）
