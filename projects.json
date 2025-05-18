@@ -54,9 +54,9 @@
     "enabled": true
   },
   {
-    "name": "istoreos",
-    "repo": "https://github.com/istoreos/istoreos.git",
+    "name": "kenzok8-small",
+    "repo": "https://github.com/kenzok8/small.git",
     "branch": "master",
-    "enabled": false
+    "enabled": true
   }
 ]
