@@ -13,6 +13,6 @@
 | **luci-app-ssr-plus** | `master` | [GitHub](https://github.com/fw876/helloworld.git) | ✅ |
 | **luci-app-gecoosac** | `main` | [GitHub](https://github.com/lwb1978/openwrt-gecoosac.git) | ✅ |
 | **luci-app-cupsd** | `main` | [GitHub](https://github.com/sirpdboy/luci-app-cupsd.git) | ✅ |
-| **istoreos** | `master` | [GitHub](https://github.com/istoreos/istoreos.git) | ❌ |
+| **kenzok8-small** | `master` | [GitHub](https://github.com/kenzok8/small.git) | ✅ |
 
-> ⏱️ 更新时间：2025-05-17 09:31 UTC（由 GitHub Actions 自动生成）
+> ⏱️ 更新时间：2025-05-18 05:49 UTC（由 GitHub Actions 自动生成）
