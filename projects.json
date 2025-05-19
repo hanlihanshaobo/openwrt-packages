@@ -3,7 +3,7 @@
     "name": "luci-theme-design",
     "repo": "https://github.com/papagaye744/luci-theme-design.git",
     "branch": "js",
-    "enabled": true
+    "enabled": false
   },
   {
     "name": "luci-theme-argon",
@@ -33,7 +33,7 @@
     "name": "luci-app-openclash",
     "repo": "https://github.com/vernesong/OpenClash.git",
     "branch": "master",
-    "enabled": true
+    "enabled": false
   },
   {
     "name": "luci-app-ofa",
@@ -57,7 +57,7 @@
     "name": "luci-app-ssr-plus",
     "repo": "https://github.com/fw876/helloworld.git",
     "branch": "master",
-    "enabled": true
+    "enabled": false
   },
   {
     "name": "luci-app-gecoosac",
