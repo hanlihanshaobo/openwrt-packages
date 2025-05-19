@@ -81,6 +81,6 @@
     "name": "kenzok8-small",
     "repo": "https://github.com/kenzok8/small.git",
     "branch": "master",
-    "enabled": true
+    "enabled": false
   }
 ]
