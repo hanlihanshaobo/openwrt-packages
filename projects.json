@@ -12,6 +12,24 @@
     "enabled": true
   },
   {
+    "name": "luci-theme-kucat",
+    "repo": "https://github.com/sirpdboy/luci-theme-kucat.git",
+    "branch": "js",
+    "enabled": true
+  },
+  {
+    "name": "luci-app-advancedplus",
+    "repo": "https://github.com/sirpdboy/luci-app-advancedplus.git",
+    "branch": "main",
+    "enabled": true
+  },
+  {
+    "name": "luci-app-chatgpt-web",
+    "repo": "https://github.com/sirpdboy/luci-app-chatgpt-web.git",
+    "branch": "main",
+    "enabled": true
+  },
+  {
     "name": "luci-app-openclash",
     "repo": "https://github.com/vernesong/OpenClash.git",
     "branch": "master",
@@ -51,6 +69,12 @@
     "name": "luci-app-cupsd",
     "repo": "https://github.com/sirpdboy/luci-app-cupsd.git",
     "branch": "main",
+    "enabled": true
+  },
+  {
+    "name": "luci-app-netspeedtest",
+    "repo": "https://github.com/sirpdboy/luci-app-netspeedtest.git",
+    "branch": "master",
     "enabled": true
   },
   {
