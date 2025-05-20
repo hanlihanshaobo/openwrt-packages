@@ -9,7 +9,7 @@
     "name": "luci-theme-argon",
     "repo": "https://github.com/jerrykuku/luci-theme-argon.git",
     "branch": "master",
-    "enabled": true
+    "enabled": false
   },
   {
     "name": "luci-theme-kucat",
