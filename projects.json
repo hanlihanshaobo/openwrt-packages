@@ -57,7 +57,7 @@
     "name": "luci-app-ssr-plus",
     "repo": "https://github.com/fw876/helloworld.git",
     "branch": "master",
-    "enabled": false
+    "enabled": true
   },
   {
     "name": "luci-app-gecoosac",
