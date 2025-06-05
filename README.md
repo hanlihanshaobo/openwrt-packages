@@ -19,4 +19,4 @@
 | **luci-app-netspeedtest** | `master` | [GitHub](https://github.com/sirpdboy/luci-app-netspeedtest.git) | ✅ |
 | **kenzok8-small** | `master` | [GitHub](https://github.com/kenzok8/small.git) | ❌ |
 
-> ⏱️ 更新时间：2025-06-04 09:37 UTC（由 GitHub Actions 自动生成）
+> ⏱️ 更新时间：2025-06-05 09:36 UTC（由 GitHub Actions 自动生成）
