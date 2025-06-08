@@ -27,7 +27,7 @@
     "name": "luci-app-chatgpt-web",
     "repo": "https://github.com/sirpdboy/luci-app-chatgpt-web.git",
     "branch": "main",
-    "enabled": true
+    "enabled": false
   },
   {
     "name": "luci-app-openclash",
