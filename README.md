@@ -8,7 +8,7 @@
 | **luci-theme-argon** | `master` | [GitHub](https://github.com/jerrykuku/luci-theme-argon.git) | ❌ |
 | **luci-theme-kucat** | `js` | [GitHub](https://github.com/sirpdboy/luci-theme-kucat.git) | ✅ |
 | **luci-app-advancedplus** | `main` | [GitHub](https://github.com/sirpdboy/luci-app-advancedplus.git) | ✅ |
-| **luci-app-chatgpt-web** | `main` | [GitHub](https://github.com/sirpdboy/luci-app-chatgpt-web.git) | ✅ |
+| **luci-app-chatgpt-web** | `main` | [GitHub](https://github.com/sirpdboy/luci-app-chatgpt-web.git) | ❌ |
 | **luci-app-openclash** | `master` | [GitHub](https://github.com/vernesong/OpenClash.git) | ❌ |
 | **luci-app-ofa** | `master` | [GitHub](https://github.com/destan19/OpenAppFilter.git) | ✅ |
 | **luci-app-wechatpush** | `master` | [GitHub](https://github.com/tty228/luci-app-wechatpush.git) | ✅ |
@@ -19,4 +19,4 @@
 | **luci-app-netspeedtest** | `master` | [GitHub](https://github.com/sirpdboy/luci-app-netspeedtest.git) | ✅ |
 | **kenzok8-small** | `master` | [GitHub](https://github.com/kenzok8/small.git) | ❌ |
 
-> ⏱️ 更新时间：2025-06-07 09:32 UTC（由 GitHub Actions 自动生成）
+> ⏱️ 更新时间：2025-06-08 09:32 UTC（由 GitHub Actions 自动生成）
