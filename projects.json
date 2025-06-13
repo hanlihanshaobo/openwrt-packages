@@ -74,7 +74,7 @@
   {
     "name": "luci-app-netspeedtest",
     "repo": "https://github.com/sirpdboy/luci-app-netspeedtest.git",
-    "branch": "js",
+    "branch": "master",
     "enabled": true
   },
   {
