@@ -9,7 +9,7 @@
 | **luci-app-chatgpt-web** | `main` | [GitHub](https://github.com/sirpdboy/luci-app-chatgpt-web.git) | ❌ |
 | **luci-app-cupsd** | `main` | [GitHub](https://github.com/sirpdboy/luci-app-cupsd.git) | ✅ |
 | **luci-app-gecoosac** | `main` | [GitHub](https://github.com/lwb1978/openwrt-gecoosac.git) | ✅ |
-| **luci-app-netspeedtest** | `master` | [GitHub](https://github.com/sirpdboy/luci-app-netspeedtest.git) | ✅ |
+| **luci-app-netspeedtest** | `js` | [GitHub](https://github.com/sirpdboy/luci-app-netspeedtest.git) | ✅ |
 | **luci-app-ofa** | `master` | [GitHub](https://github.com/destan19/OpenAppFilter.git) | ✅ |
 | **luci-app-openclash** | `master` | [GitHub](https://github.com/vernesong/OpenClash.git) | ❌ |
 | **luci-app-pushbot** | `master` | [GitHub](https://github.com/zzsj0928/luci-app-pushbot.git) | ❌ |
@@ -19,4 +19,4 @@
 | **luci-theme-design** | `js` | [GitHub](https://github.com/papagaye744/luci-theme-design.git) | ❌ |
 | **luci-theme-kucat** | `js` | [GitHub](https://github.com/sirpdboy/luci-theme-kucat.git) | ✅ |
 
-> ⏱️ 更新时间：2025-06-13 21:14:51 CST（由 GitHub Actions 自动生成）
+> ⏱️ 更新时间：2025-06-14 15:24:34 CST（由 GitHub Actions 自动生成）
