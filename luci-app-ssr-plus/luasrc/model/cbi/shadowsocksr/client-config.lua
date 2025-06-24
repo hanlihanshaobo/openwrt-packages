@@ -349,6 +349,9 @@ end
 if is_finded("xray-plugin") then
 	o:value("xray-plugin", translate("xray-plugin"))
 end
+if is_finded("shadow-tls") then
+	o:value("shadow-tls", translate("shadow-tls"))
+end
 o:value("custom", translate("Custom"))
 o.rmempty = true
 o:depends({enable_plugin = true})
@@ -433,7 +436,6 @@ o.default = "salamander"
 o = s:option(Value, "salamander", translate("Obfuscation Password"))
 o:depends({type = "hysteria2", flag_obfs = "1"})
 o.rmempty = true
-o.default = "cry_me_a_r1ver"
 
 o = s:option(Flag, "flag_quicparam", translate("Hysterir QUIC parameters"))
 o:depends("type", "hysteria2")
