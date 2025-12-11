@@ -19,4 +19,4 @@
 | **luci-theme-design** | `js` | [GitHub](https://github.com/papagaye744/luci-theme-design.git) | ❌ |
 | **luci-theme-kucat** | `js` | [GitHub](https://github.com/sirpdboy/luci-theme-kucat.git) | ✅ |
 
-> ⏱️ 更新时间：2025-12-10 17:40:44 CST（由 GitHub Actions 自动生成）
+> ⏱️ 更新时间：2025-12-11 17:42:09 CST（由 GitHub Actions 自动生成）
